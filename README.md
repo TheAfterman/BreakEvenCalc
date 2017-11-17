@@ -1,5 +1,5 @@
 # BreakEvenCalc
 
-# Helps traders to determine their break even sell price given a list of previous buy and  sell orders.
+### Helps traders to determine their break even sell price given a list of previous buy and  sell orders.
 
-https://theafterman.github.io/BreakEvenCalc/
+<a href="https://theafterman.github.io/BreakEvenCalc/" target="_blank">https://theafterman.github.io/BreakEvenCalc/</a>
