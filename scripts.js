@@ -91,14 +91,23 @@ window.BreakEvenCalc = new (function () {
         this.elements.breakEven.innerHTML = value;
     }
 
-    Calc.prototype.loadCSVData = function (file) {
+    Calc.prototype.loadCSVData = function (file, encoding) {
         var self = this;
 
         Papa.parse(file, {
             header: true,
             complete: function (results, file) {
-                self.addCSVData(results.data);
-            }
+                if (results.errors[0] && results.errors[0].code === "UndetectableDelimiter") {
+                    if (encoding === 'UTF8') {
+                        return; //quit trying, already tried UTF8 encoding and it still didn't work
+                    }
+                    //try alternate encoding as I seem to get different file encodings from bittrex at different times
+                    self.loadCSVData(file, 'UTF8');
+                } else {
+                    self.addCSVData(results.data);
+                }
+            },
+            encoding: encoding || 'Unicode'
         });
     }
 
