@@ -103,11 +103,13 @@ window.BreakEvenCalc = new (function () {
     }
 
     Calc.prototype.addCSVData = function (data) {
-        var coinsBoughtProp = this.getObjectProperty('Units Filled', data[0]);
-        var costProp = this.getObjectProperty('Actual Rate', data[0]);
+        var coinsBoughtProp = this.getObjectProperty('Units Filled', data[0]) || this.getObjectProperty('Quantity', data[0]);
+        var costProp = this.getObjectProperty('Actual Rate', data[0]) || this.getObjectProperty('Limit', data[0]);;
         for (var i = 0; i < data.length; i++) {
-            var isBuy = data[i].Type.indexOf('Buy') > -1;
-            this.addCSVRow(data[i][coinsBoughtProp], data[i][costProp], isBuy);
+            if (data[i].Type) {
+                var isBuy = data[i].Type.toUpperCase().indexOf('BUY') > -1;
+                this.addCSVRow(data[i][coinsBoughtProp], data[i][costProp], isBuy);
+            }
         }
 
         //caclulate result
