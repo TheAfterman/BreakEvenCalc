@@ -1,0 +1,19 @@
+ul.buy-list, ul.sell-list {
+    list-style: none;
+}
+
+.sell-side {
+    background-color: #ffdbdb;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
+
+.buy-side {
+    background-color: #dbffdb;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
+
+.padded {
+    padding: 10px;
+}

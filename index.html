@@ -1,0 +1,60 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>Break Even Calculator</title>
+    <meta name="description" content="Break Even Calculator">
+    <link rel="stylesheet" href="css/normalize.css?v=1.0">
+    <link rel="stylesheet" href="css/skeleton.css?v=1.0">
+    <link rel="stylesheet" href="css/styles.css?v=1.0">
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <article class="buy-side six columns padded">
+                <h3>Buys</h3>
+                <form action="">
+                    <ul class="buy-list">
+                        <li>
+                            <label class="six columns"><span>Amount: </span><input type="number" class="amount" /></label>
+                            <label class="six columns"><span>Price: </span><input type="number" class="price" /></label>
+                        </li>
+                    </ul>
+                </form>
+                <button class="add-row button-primary">Add Row</button>
+            </article>
+            <article class="sell-side six columns padded">
+                <h3>Sells</h3>
+                <form action="">
+                    <ul class="sell-list">
+                        <li>
+                            <label class="six columns"><span>Amount: </span><input type="number" class="amount" /></label>
+                            <label class="six columns"><span>Price: </span><input type="number" class="price" /></label>
+                        </li>
+                    </ul>
+                </form>
+                <button class="add-row button-primary">Add Row</button>
+            </article>
+        </div>
+        <div class="row padded">
+            <h3>Break even: </h3>
+            <h3 class="break-even">
+            </h3>
+        </div>
+        <div class="row padded">
+            <input id="fileInput" type="file" accept=".csv" style="display:none;" />
+            <button class="button-primary load-csv">Load CSV</button>
+        </div>
+    </div>
+    
+    <script src="scripts.js"></script>
+    <script src="lib/papaparse.min.js"></script>
+</body>
+</html>
