@@ -49,12 +49,12 @@ window.BreakEvenCalc = new (function () {
 
     Calc.prototype.calculateBreakEven = function () {
         var coinsBought = this.getAmountSum(this.elements.buySide);
-        var coinsSold = this.getAmountSum(this.elements.sellSide);
+        var coinsSold = this.getAmountSum(this.elements.sellSide) || 0;
         var btcSpent = this.getBTCSpent(this.elements.buySide);
-        var btcGained = this.getBTCSpent(this.elements.sellSide);
+        var btcGained = this.getBTCSpent(this.elements.sellSide) || 0;
 
         var aveBuyPrice = btcSpent / coinsBought;
-        var aveSellPrice = btcGained / coinsSold;
+        var aveSellPrice = (btcGained / coinsSold) || 0;
 
         var breakEven = (btcSpent - btcGained) / (coinsBought - coinsSold);
 
