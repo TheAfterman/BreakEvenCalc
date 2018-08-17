@@ -5,7 +5,8 @@ window.BreakEvenCalc = new (function () {
         this.elements = {
             buySide: document.querySelector('.buy-side'),
             sellSide: document.querySelector('.sell-side'),
-            breakEven: document.querySelector('.break-even')
+            breakEven: document.querySelector('.break-even'),
+            totalInvested: document.querySelector('.total-invested')
         }
 
         var addButtons = document.querySelectorAll('button.add-row');
@@ -59,6 +60,7 @@ window.BreakEvenCalc = new (function () {
         var breakEven = (btcSpent - btcGained) / (coinsBought - coinsSold);
 
         this.populateBreakEven(breakEven.toFixed(8));
+        this.populateTotalSpent((aveBuyPrice * (coinsBought - coinsSold)).toFixed(8));
     }
 
     Calc.prototype.getAmountSum = function (side) {
@@ -80,7 +82,9 @@ window.BreakEvenCalc = new (function () {
         var btcTotal = 0;
         for (var i = 0; i < amountInputs.length; i++) {
             if (!isNaN(amountInputs[i].value) && !isNaN(priceInputs[i].value)) {
-                btcTotal += parseFloat(amountInputs[i].value) * parseFloat(priceInputs[i].value);
+                var amountSpent = parseFloat(amountInputs[i].value) * parseFloat(priceInputs[i].value);
+                amountSpent = amountSpent + (amountSpent * 0.0025);   //subtract commission
+                btcTotal += amountSpent;
             }
         }
 
@@ -89,6 +93,10 @@ window.BreakEvenCalc = new (function () {
 
     Calc.prototype.populateBreakEven = function (value) {
         this.elements.breakEven.innerHTML = value;
+    }
+
+    Calc.prototype.populateTotalSpent = function (value) {
+        this.elements.totalInvested.innerHTML = value;
     }
 
     Calc.prototype.loadCSVData = function (file, encoding) {
@@ -112,8 +120,9 @@ window.BreakEvenCalc = new (function () {
     }
 
     Calc.prototype.addCSVData = function (data) {
-        var coinsBoughtProp = this.getObjectProperty('Units Filled', data[0]) || this.getObjectProperty('Quantity', data[0]);
-        var costProp = this.getObjectProperty('Actual Rate', data[0]) || this.getObjectProperty('Limit', data[0]);;
+        var coinsBoughtProp = this.getObjectProperty('Units Filled', data[0]) || this.getObjectProperty('Quantity', data[0]) || this.getObjectProperty('Amount', data[0]);
+        var costProp = this.getObjectProperty('Actual Rate', data[0]) || this.getObjectProperty('Limit', data[0]) || this.getObjectProperty('Price', data[0]);
+        var commissionProp = this.getObjectProperty('Commission', data[0]) || this.getObjectProperty('Fee', data[0]);
         for (var i = 0; i < data.length; i++) {
             if (data[i].Type) {
                 var isBuy = data[i].Type.toUpperCase().indexOf('BUY') > -1;
