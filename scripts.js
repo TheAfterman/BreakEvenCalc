@@ -60,7 +60,7 @@ window.BreakEvenCalc = new (function () {
         var breakEven = (btcSpent - btcGained) / (coinsBought - coinsSold);
 
         this.populateBreakEven(breakEven.toFixed(8));
-        this.populateTotalSpent((aveBuyPrice * (coinsBought - coinsSold)).toFixed(8));
+        this.populateTotalSpent((btcSpent - btcGained).toFixed(8));
     }
 
     Calc.prototype.getAmountSum = function (side) {
@@ -87,7 +87,6 @@ window.BreakEvenCalc = new (function () {
                 btcTotal += amountSpent;
             }
         }
-
         return btcTotal;
     }
 
